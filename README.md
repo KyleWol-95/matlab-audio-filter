@@ -4,13 +4,13 @@
 ![Category](https://img.shields.io/badge/Field-DSP%20%26%20Signal%20Processing-blue)
 ![Algorithm](https://img.shields.io/badge/Algorithm-Parks--McClellan%20%7C%20FFT-green)
 
-A digital signal processing (DSP) portfolio project featuring custom FIR filter synthesis using the Parks-McClellan algorithm and a hybrid time-frequency domain pipeline for audio noise reduction.
+A digital signal processing (DSP) project featuring custom FIR filter synthesis using the Parks-McClellan algorithm and a hybrid time-frequency domain pipeline for audio noise reduction.
 
 ---
 
 ## 📌 Project Overview
 
-This project is divided into two main signal processing applications:
+This repository is divided into two core signal processing applications:
 1. **Equiripple FIR Bandpass Filter Synthesis & Verification:** Designing an optimal bandpass FIR filter to meet strict passband and stopband ripple constraints, using automated validation in MATLAB.
 2. **Hybrid Audio De-Noising Pipeline:** Identifying low-frequency hum and high-frequency spectral spikes in a noisy recording (`music_noisy.wav`) and removing them using a combined time-domain FIR notch filter and frequency-domain FFT zeroing.
 
@@ -35,6 +35,12 @@ Spectral analysis (FFT) of the noisy music signal identified two distinct noise 
 
 ## 📊 Visualizations & Results
 
+### Part 1: FIR Filter Synthesis & Verification
+| Magnitude & Phase Response | Specification Verification | Frequency Response |
+| :---: | :---: | :---: |
+| ![Bandpass Filter](docs/bandpass-filter.png) | ![Filter Verification](docs/filter-verification.png) | ![Filter Design](docs/filter-design.png) |
+
+### Part 2: Audio De-Noising Output
 | Time-Domain Waveforms | Frequency Spectra (FFT) |
 | :---: | :---: |
 | ![Time Domain Graphic](docs/time-domain-graphic.png) | ![Frequency Domain Graphic](docs/frequency-domain-graphic.png) |
@@ -45,9 +51,13 @@ Spectral analysis (FFT) of the noisy music signal identified two distinct noise 
 
 ```text
 matlab-audio-filter/
-├── README.md                   <-- Project documentation
-├── docs/                       <-- Plot screenshots
-│   ├── time-domain-graphic.png
-│   └── frequency-domain-graphic.png
-└── src/                       <-- Clean MATLAB script
-    └── audio-filter.m          <-- DSP filtering pipeline
+├── README.md                     <-- Project documentation
+├── docs/                         <-- Plot screenshots & terminal outputs
+│   ├── bandpass-filter.png
+│   ├── filter-design.png
+│   ├── filter-verification.png
+│   ├── frequency-domain-graphic.png
+│   └── time-domain-graphic.png
+└── src/                         <-- MATLAB source code
+    ├── audio-filter.m            <-- Part 2: Audio de-noising script
+    └── design-verification.m     <-- Part 1: FIR design & automated specs verification
