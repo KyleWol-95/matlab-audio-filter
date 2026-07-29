@@ -21,7 +21,7 @@ By combining time-domain FIR filtering with frequency-domain notch zeroing, the 
 
 | Time-Domain Waveforms | Frequency Spectra (FFT) |
 | :---: | :---: |
-| ![Time Domain Plots](docs/time_domain.png) | ![Frequency Domain Plots](docs/frequency_domain.png) |
+| ![Time Domain Plots](docs/time-domain-graphic.png) | ![Frequency Domain Plots](docs/frequency-domain-graphic.png) |
 
 ---
 
@@ -31,7 +31,7 @@ By combining time-domain FIR filtering with frequency-domain notch zeroing, the 
 matlab-audio-filter/
 ├── README.md                  <-- Project description & results
 ├── docs/                      
-│   ├── time_domain.png        <-- Waveform plots (Original vs Filtered)
-│   └── frequency_domain.png   <-- FFT magnitude spectrum plots
+│   ├── time-domain-graphic.png        <-- Waveform plots (Original vs Filtered)
+│   └── frequency-domain-graphic.png   <-- FFT magnitude spectrum plots
 └── src/                      
-    └── audio_filter_combined.m <-- Final working MATLAB script
+    └── audio-filter.m <-- Final working MATLAB script
