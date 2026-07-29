@@ -1,19 +1,35 @@
-# Audio Signal Noise Reduction in MATLAB (Hybrid Time & Frequency Domain)
+# Digital Filter Design & Audio Signal Processing (MATLAB)
 
 ![MATLAB](https://img.shields.io/badge/Language-MATLAB-orange)
 ![Category](https://img.shields.io/badge/Field-DSP%20%26%20Signal%20Processing-blue)
+![Algorithm](https://img.shields.io/badge/Algorithm-Parks--McClellan%20%7C%20FFT-green)
 
-A digital signal processing (DSP) pipeline implemented in MATLAB to eliminate low-frequency hum and narrow high-frequency spectral spikes from a noisy audio recording (`music_noisy.wav`).
+A digital signal processing (DSP) portfolio project featuring custom FIR filter synthesis using the Parks-McClellan algorithm and a hybrid time-frequency domain pipeline for audio noise reduction.
 
 ---
 
-## 📌 Technical Summary
+## 📌 Project Overview
 
-Spectral analysis (FFT) of the noisy audio signal revealed two distinct types of interference:
-1. **Low-Frequency Hum (50–60 Hz):** Removed using a time-domain **FIR bandstop (notch) filter** (`fir1`), preserving linear phase response to prevent signal distortion.
-2. **High-Frequency Spikes (1102 Hz & 2756 Hz):** Eliminated in the frequency domain by **zeroing out specific FFT bins**, followed by Inverse FFT (`ifft`) reconstruction.
+This project is divided into two main signal processing applications:
+1. **Equiripple FIR Bandpass Filter Synthesis & Verification:** Designing an optimal bandpass FIR filter to meet strict passband and stopband ripple constraints, using automated validation in MATLAB.
+2. **Hybrid Audio De-Noising Pipeline:** Identifying low-frequency hum and high-frequency spectral spikes in a noisy recording (`music_noisy.wav`) and removing them using a combined time-domain FIR notch filter and frequency-domain FFT zeroing.
 
-By combining time-domain FIR filtering with frequency-domain notch zeroing, the pipeline successfully strips out electrical hum and narrow tones without degrading the original musical content.
+---
+
+## 🔬 Technical Breakdown
+
+### Part 1: Bandpass FIR Filter Design & Verification
+Designed using the Parks-McClellan optimal equiripple algorithm (`firpm` / `firpmord`) with a sampling frequency $F_s = 8000\text{ Hz}$:
+* **Stopband 1:** $0 - 500\text{ Hz}$ ($\text{Ripple} \le 0.01$ / $-40\text{ dB}$)
+* **Passband:** $1500 - 2000\text{ Hz}$ ($\text{Ripple} \le 0.01$)
+* **Stopband 2:** $3000 - 4000\text{ Hz}$ ($\text{Ripple} \le 0.001$ / $-60\text{ dB}$)
+* **Order Optimization:** `firpmord` initially estimated an order of $N=19$, but verification revealed a passband ripple exceedance ($0.0198$). Manually increasing the filter order to **$N=23$** successfully satisfied all design specifications.
+
+### Part 2: Dual-Stage Audio Noise Reduction
+Spectral analysis (FFT) of the noisy music signal identified two distinct noise artifacts:
+1. **50–60 Hz Low-Frequency Hum:** Attenuated using a time-domain FIR bandstop filter (`fir1`, order $N=200$) to maintain linear phase.
+2. **1102 Hz & 2756 Hz High-Frequency Spikes:** Eliminated by zeroing out specific frequency bins in the FFT spectrum, followed by Inverse FFT (`ifft`) reconstruction.
+3. **Combined Pipeline:** Sequentially applied time-domain FIR filtering and frequency-domain zeroing to strip electrical hum and narrow tones while maintaining audio signal integrity.
 
 ---
 
@@ -21,7 +37,7 @@ By combining time-domain FIR filtering with frequency-domain notch zeroing, the 
 
 | Time-Domain Waveforms | Frequency Spectra (FFT) |
 | :---: | :---: |
-| ![Time Domain Plots](docs/time-domain-graphic.png) | ![Frequency Domain Plots](docs/frequency-domain-graphic.png) |
+| ![Time Domain Graphic](docs/time-domain-graphic.png) | ![Frequency Domain Graphic](docs/frequency-domain-graphic.png) |
 
 ---
 
@@ -29,9 +45,9 @@ By combining time-domain FIR filtering with frequency-domain notch zeroing, the 
 
 ```text
 matlab-audio-filter/
-├── README.md                  <-- Project description & results
-├── docs/                      
-│   ├── time-domain-graphic.png        <-- Waveform plots (Original vs Filtered)
-│   └── frequency-domain-graphic.png   <-- FFT magnitude spectrum plots
-└── src/                      
-    └── audio-filter.m <-- Final working MATLAB script
+├── README.md                   <-- Project documentation
+├── docs/                       <-- Plot screenshots
+│   ├── time-domain-graphic.png
+│   └── frequency-domain-graphic.png
+└── src/                       <-- Clean MATLAB script
+    └── audio-filter.m          <-- DSP filtering pipeline
